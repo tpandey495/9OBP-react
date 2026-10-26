@@ -1,14 +1,17 @@
-import Navbar from "./component/navbar";
-import Footer from "./component/footer";
 import Profile from "./component/profile";
+import Counter from "./component/Counter";
+import ProfileCard from "./component/profileCard";
+
 
 function App() {
 
     return (
         <>
-            <Navbar />
-            <Footer />
-            <Profile isLogedin={true}/>
+            {/* <Navbar />
+            <Footer /> */}
+            {/* <Profile isLogedin={true}/>
+            <Counter /> */}
+            <ProfileCard />
         </>
     )
 }
