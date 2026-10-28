@@ -1,83 +1,132 @@
-// create a form with name and email 
-// show the name and email submiited by user 
-// and implement update and delete
-
-
 
 import { useState } from 'react';
-import "./style.css";
+// users crud operation 
 
-function CRUD() {
-    const [profile, setProfile] = useState({
-        firstName: " ",
-        email: " ",
-        age: " "
-    })
+const Crud = () => {
+    const [user, setUser] = useState({
+        firstName: "",
+        email: "",
+        age: ""
+    });
 
+    const [users, setUsers] = useState([]);
 
-
-    const [persons, setPersons] = useState([]);
+    const [edit, setEdit] = useState(null);
 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setProfile({ ...profile, [name]: value });
+        setUser({ ...user, [name]: value });
     }
 
     const handleSubmit = (e) => {
+        //    user push users array 
         e.preventDefault();
-        setPersons([...persons, profile]);
-        setProfile({
-            firstName: " ",
-            email: " ",
-            age: " "
-        });
+        if (edit != null) {
+            // edit current user 
+            let newUsers = users.map((person) => {
+                if (person.email == edit) {
+                    return user;
+                } else {
+                    return person;
+                }
+            })
+
+            setUsers(newUsers);
+        }
+        else {
+            // insert new user logic
+            setUsers([...users, user]);
+            setUser({
+                firstName: "",
+                email: "",
+                age: ""
+            })
+        }
+
     }
 
-    return (
-        <div className="form">
-            <form>
-                <input type="text"
-                    name="firstName"
-                    value={profile.name}
-                    placeholder="Enter your first name"
-                    onChange={handleChange}
-                /> <br />
+    const deleteUser = (email) => {
+        console.log(email);
+        setUsers(users.filter((user) => user.email != email));
+    }
 
+    const handleEdit = (user) => {
+        console.log(user);
+        setUser({
+            ...user,
+            firstName: user.firstName,
+            email: user.email,
+            age: user.age
+        })
+
+        setEdit(user.email);
+
+
+    }
+
+
+    return (
+
+        <>
+            <form>
+                <input
+                    type="text"
+                    name="firstName"
+                    value={user.firstName}
+                    placeholder="Enter your Name"
+                    onChange={handleChange}
+                />
+
+                <br />
 
                 <input
                     type="email"
                     name="email"
+                    value={user.email}
                     placeholder="Enter your email"
-                    value={profile.email}
                     onChange={handleChange}
-                /> <br />
+                />
+
+                <br />
 
                 <input
                     type="number"
                     name="age"
-                    placeholder="Enter your age"
-                    value={profile.age}
+                    value={user.age}
+                    placeholder="Enter your =age"
                     onChange={handleChange}
-                /> <br />
+                />
+                <br />
 
                 <button type="submit" onClick={handleSubmit}>Submit</button>
             </form>
 
             {
-                persons.map((person, index) => {
-                    return <div key={index}>
-                        <p>{person.name}</p>
-                        <p>{person.email}</p>
-                        <p>{person.age}</p>
+                users.map((user, index) =>
+                    <div key={index} style={{ display: "flex", gap: "20px" }}>
+                        <p>{user.firstName}</p>
+                        <p>{user.email}</p>
+                        <p>{user.age}</p>
+                        <button onClick={() => handleEdit(user)}>
+                            Edit
+                        </button>
+                        <button style={{ height: "40px" }}
+                            onClick={() =>
+                                deleteUser(user.email)
+                            }
+                        >
+                            Delete
+                        </button>
                     </div>
-                })
-
+                )
             }
 
-        </div>
+        </>
+
+
     )
+
 }
 
-
-export default CRUD;
+export default Crud;
