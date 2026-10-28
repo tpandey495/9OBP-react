@@ -2,3 +2,17 @@
     display: flex;
     justify-content: space-around;
 }
+
+.form{
+    border:2px solid black;
+    width:200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form input{
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+    width:150px;
+}
