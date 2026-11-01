@@ -28,13 +28,27 @@
 
 // 
 
-function Profile({isLogedin}){
-    return(
+
+function PrintName() {
+    {console.log("breakpoint5")}
+    return (
         <>
-         {
-         isLogedin &&
-         <h1>Hello Welcome</h1>
-         }
+            {console.log("breakpoint6")}
+            <h2>Child component</h2>
+        </>
+    )
+}
+
+function Profile() {
+    { console.log("breakpoint1") }
+
+    return (
+        <>
+            {console.log("breakpoint2")}
+            <PrintName />
+            <h1>Hello Welcome</h1>
+            {console.log("breakpoint4")}
+
         </>
     )
 }
